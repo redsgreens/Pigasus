@@ -1,0 +1,25 @@
+#
+# HoveringChance: Percent chance that hovering pigs will spawn 
+#
+# List of worlds where hovering is enabled, and the percent chance of spawn (default is disabled)
+# 
+Worlds: 
+    world: 
+        Pig: 10
+        Chicken: 50
+
+#
+# WandItem: item used in game to launch a pig
+#
+# Allowed values: any item id or item name (default is saddle)
+# 
+WandItem: feather
+
+#
+# ShowErrorsInClient: toggle that determines if permissions or other error messages
+#                     are displayed client-side
+#
+# Allowed values : Yes (shows errors to players)
+#                  No  (errors only show up in server console)
+# 
+ShowErrorsInClient: Yes
