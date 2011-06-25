@@ -16,6 +16,8 @@ public class PigasusFlyingEntity {
 	{
 		Entity = entity;
 		Type = getType(Entity);
+		if(rand.nextInt(3) == 0)
+			Landing = true;
 	}
 	
 	public PigasusEntityType getType()
@@ -66,7 +68,7 @@ public class PigasusFlyingEntity {
 	public void TakeOff()
 	{
 		// launch it into the air
-		Entity.setVelocity(new Vector(0,1,0));
+		Entity.setVelocity(new Vector(0,rand.nextDouble()/3,0));
 	}
 
 	public static PigasusEntityType getType(Entity e)

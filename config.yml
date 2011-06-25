@@ -6,7 +6,7 @@
 Worlds: 
     world: 
         Pig: 10
-        Chicken: 50
+        Chicken: 25
 
 #
 # WandItem: item used in game to launch a pig
