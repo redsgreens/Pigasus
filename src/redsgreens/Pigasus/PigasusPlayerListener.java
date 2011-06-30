@@ -31,7 +31,7 @@ public class PigasusPlayerListener extends PlayerListener {
     	if(player.getItemInHand().getType() != plugin.Config.WandItem) return;
     	
     	// check for permission
-    	if(!plugin.isAuthorized(player, "tickle")) 
+    	if(!plugin.isAuthorized(player, "wand")) 
     	{
     		if(plugin.Config.ShowErrorsInClient)
 				player.sendMessage("§cErr: " + plugin.Name + ": you don't have permission.");
