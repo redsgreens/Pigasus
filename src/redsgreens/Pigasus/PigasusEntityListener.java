@@ -2,12 +2,14 @@ package redsgreens.Pigasus;
 
 import java.util.Random;
 import org.bukkit.entity.Entity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityListener;
 
-public class PigasusEntityListener extends EntityListener {
+public class PigasusEntityListener implements Listener {
     private final Pigasus plugin;
     Random rand = new Random();
 
@@ -15,7 +17,7 @@ public class PigasusEntityListener extends EntityListener {
         plugin = instance;
     }
 
-    @Override
+    @EventHandler(priority = EventPriority.MONITOR)
 	public void onCreatureSpawn(CreatureSpawnEvent event) 
 	{
     	// return if the event is already cancelled
@@ -30,7 +32,7 @@ public class PigasusEntityListener extends EntityListener {
 		}
 	}
 
-    @Override
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent event)
     {
     	// return if the event is already cancelled

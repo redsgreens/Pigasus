@@ -2,8 +2,6 @@ package redsgreens.Pigasus;
 
 import java.util.HashMap;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,9 +36,9 @@ public class Pigasus extends JavaPlugin {
       	setupPermissions();
 
       	PluginManager pm = getServer().getPluginManager();
-      	pm.registerEvent(Type.PLAYER_INTERACT_ENTITY, playerListener, Priority.Monitor, this);
-        pm.registerEvent(Type.ENTITY_DAMAGE, entityListener, Priority.Monitor, this);
-        pm.registerEvent(Type.CREATURE_SPAWN, entityListener, Priority.Monitor, this);
+      	pm.registerEvents(playerListener, this);
+        pm.registerEvents(entityListener, this);
+        pm.registerEvents(entityListener, this);
       	
         System.out.println(this.Name + " v" + this.Version + " is enabled for worlds: " + Config.WorldConfigs.keySet().toString() );
     }

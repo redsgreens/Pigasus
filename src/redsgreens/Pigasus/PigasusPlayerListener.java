@@ -2,21 +2,23 @@ package redsgreens.Pigasus;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerListener;
 
 /**
  * Handle events for all Player related events
  * @author redsgreens
  */
-public class PigasusPlayerListener extends PlayerListener {
+public class PigasusPlayerListener implements Listener {
     private final Pigasus plugin;
 
     public PigasusPlayerListener(Pigasus instance) {
         plugin = instance;
     }
 
-    @Override
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event)
     // catch player+entity events, looking for wand usage on an entity
     {
