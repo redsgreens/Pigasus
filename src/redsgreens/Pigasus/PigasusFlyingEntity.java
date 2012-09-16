@@ -7,15 +7,17 @@ import org.bukkit.entity.*;
 import org.bukkit.util.Vector;
 
 public class PigasusFlyingEntity {
-	private Entity Entity = null;
+	private Entity entity = null;
 	private PigasusEntityType Type = PigasusEntityType.Unknown;
 	private Boolean Landing = false;
     private static Random rand = new Random();
+    private Integer flightLevel = 64;
+    private Integer flightHeight = 12 + rand.nextInt(24);
 
-	public PigasusFlyingEntity(Entity entity)
+	public PigasusFlyingEntity(Entity e)
 	{
-		Entity = entity;
-		Type = getType(Entity);
+		entity = e;
+		Type = getType(entity);
 		if(rand.nextInt(3) == 0)
 			Landing = true;
 	}
@@ -27,34 +29,36 @@ public class PigasusFlyingEntity {
 
 	public Boolean isDead()
 	{
-		return Entity.isDead();
+		return entity.isDead();
 	}
 	
 	public void Fly()
 	{
-		Vector v = Entity.getVelocity();
-		Location loc = Entity.getLocation();
+		Vector v = entity.getVelocity();
+		Location loc = entity.getLocation();
 		
 		if(!Landing)
 		{
 
-			if(rand.nextInt(200) == 0)
+			if(rand.nextInt(400) == 0)
 				Landing = true;
 			else
 			{
+				updateFlightLevel();
+				
 				if(loc.getY() > 120 && v.getY() > 0)
 					v.setY(0);
 				if(rand.nextInt(20) == 0 && v.getY() < 0)
 					v.setY(rand.nextDouble()/3);
-				if(loc.getY() - loc.getWorld().getHighestBlockYAt(loc) < (12 * rand.nextDouble() + 5))
+				if(loc.getY() - flightLevel < (flightHeight * rand.nextDouble() + 5))
 					v.setY(rand.nextDouble()/3);
 				if(rand.nextInt(5) == 0)
 					v.setX(loc.getDirection().getX()/3);
 				if(rand.nextInt(5) == 0)
 					v.setZ(loc.getDirection().getZ()/3);
 				
-				Entity.setVelocity(v);
-				Entity.setFallDistance(0);
+				entity.setVelocity(v);
+				entity.setFallDistance(0);
 			}
 		}
 		else if(rand.nextInt(200) == 0)
@@ -68,7 +72,7 @@ public class PigasusFlyingEntity {
 	public void TakeOff()
 	{
 		// launch it into the air
-		Entity.setVelocity(new Vector(0,rand.nextDouble()/3,0));
+		entity.setVelocity(new Vector(0,rand.nextDouble()/3,0));
 	}
 
 	public static PigasusEntityType getType(Entity e)
@@ -86,5 +90,18 @@ public class PigasusFlyingEntity {
 		else if(e instanceof Slime) return PigasusEntityType.Slime;
 		else if(e instanceof PigZombie) return PigasusEntityType.PigZombie;
 		else return PigasusEntityType.Unknown;
+	}
+	
+	private void updateFlightLevel()
+	{
+		Location loc = entity.getLocation();
+		Integer f = loc.getWorld().getHighestBlockYAt(loc);
+		if(f > 0)
+		{
+			if(flightLevel - f > 12)
+				flightLevel = flightLevel - 1;
+			else
+				flightLevel = f;
+		}
 	}
 }
