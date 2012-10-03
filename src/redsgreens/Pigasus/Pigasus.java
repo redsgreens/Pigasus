@@ -1,6 +1,8 @@
 package redsgreens.Pigasus;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -42,7 +44,7 @@ public class Pigasus extends JavaPlugin {
       	
         System.out.println(this.Name + " v" + this.Version + " is enabled for worlds: " + Config.WorldConfigs.keySet().toString() );
     }
-
+/*
     // return true if Player p has the permission perm
     public boolean isAuthorized(Player p, String perm){
     	boolean retval = p.isOp();
@@ -70,7 +72,46 @@ public class Pigasus extends JavaPlugin {
     	}
     	catch (Exception ex){}
     }
+*/
+    
+	// return true if Player p has the permission perm
+    public boolean isAuthorized(Player p, String perm){
+    	boolean retval = p.isOp();
 
+    	if(Permissions == null && retval == false)
+    	{
+    		try
+    		{
+    			return p.hasPermission("pigasus." + perm);
+    		}
+    		catch (Exception ex){}
+    	}
+    	else
+    	{
+        	try{
+        		if(Permissions != null)
+        			  if (Permissions.has(p, "pigasus." + perm))
+        			      retval = true;
+        	}
+        	catch (Exception ex){}
+    	}
+
+    	return retval;	
+    }
+    
+    public void setupPermissions() {
+    	try{
+            Plugin test = getServer().getPluginManager().getPlugin("Permissions");
+
+            if (Permissions == null) {
+                if (test != null) {
+                    Permissions = ((Permissions)test).getHandler();
+                   	getLogger().log(Level.INFO, "Found permissions handler " + test.getDescription().getName() + " " + test.getDescription().getVersion());
+                }
+            }
+    	}
+    	catch (Exception ex){}
+    }
     public void onDisable() {
         System.out.println(this.Name + " v" + this.Version + " is disabled." );
     }

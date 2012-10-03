@@ -33,7 +33,7 @@ public class PigasusPlayerListener implements Listener {
     	if(player.getItemInHand().getType() != plugin.Config.WandItem) return;
     	
     	// check for permission
-    	if(!plugin.isAuthorized(player, "wand")) 
+    	if(!plugin.isAuthorized(player, "wand") && !plugin.isAuthorized(player, "wand." + PigasusFlyingEntity.getType(entity).name().toLowerCase())) 
     	{
     		if(plugin.Config.ShowErrorsInClient)
 				player.sendMessage("§cErr: " + plugin.Name + ": you don't have permission.");
